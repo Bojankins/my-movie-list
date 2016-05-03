@@ -42,13 +42,32 @@
       </ul>
     </div>
   </nav>
-
-      <% @movies.each do |movie| %>
-        <%= movie["title"] %>
-        <%= image_tag("https://image.tmdb.org/t/p/original" + movie["poster_path"], size: "200x300") %>
-      <% end %>
+  
+  <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+      
+  <% @movies.each do |movie| %>
+    <%= movie["title"] %>
+    <%= image_tag("https://image.tmdb.org/t/p/original" + movie["poster_path"], size: "200x300") %>
+  <% end %>
     
 </body>
 
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '607667276073186',
+        xfbml      : true,
+        version    : 'v2.6'
+      });
+    };
+  
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
 
 </html>
