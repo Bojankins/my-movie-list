@@ -5,7 +5,7 @@ feature "Welcome Page"do
     
   scenario "When logged out" do
   visit '/'
-  expect(page).to have_content("Welcome to My Movie List")
+  expect(page).to have_content("MyMovieList")
   end
     
 end

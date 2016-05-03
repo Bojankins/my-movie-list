@@ -2,11 +2,52 @@
 <html>
     
 <head>
-    <title>MyMovieList</title>
+  <title>MyMovieList</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
 </head>
 
 <body>
-    <h1>Welcome to My Movie List</h1>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">My Movie List</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">Home</a></li>
+        <li><a href="#">Movies</a></li>
+        <li><a href="#">My List</a></li> 
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+        <li>
+          <p>Welcome <%= current_user.email %>!</p>
+        </li>
+        <li>
+          <%= link_to "Log Out", destroy_user_session_path %>
+        </li>
+        <% else %>
+        <li>
+          <%= link_to new_user_registration_path do %>
+            <span class="glyphicon glyphicon-user"></span> Sign Up!
+          <% end %>
+        </li>
+        <li>
+          <%= link_to new_user_session_path do %>
+            <span class="glyphicon glyphicon-log-in"></span> Login
+          <% end %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+
+      <% @movies.each do |movie| %>
+        <%= movie["title"] %>
+        <%= image_tag("https://image.tmdb.org/t/p/original" + movie["poster_path"], size: "200x300") %>
+      <% end %>
+    
 </body>
 
 
